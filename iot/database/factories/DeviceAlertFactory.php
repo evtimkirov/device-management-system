@@ -20,7 +20,7 @@ class DeviceAlertFactory extends Factory
         return [
             'device_id'      => DB::table('devices')->inRandomOrder()->value('id'),
             'measurement_id' => DB::table('measurements')->inRandomOrder()->value('id'),
-            'type'           => $this->faker->randomElement(['temperature', 'offline', 'custom_rule']),
+            'type'           => $this->faker->randomElement(['temperature_threshold', 'offline', 'custom_rule']),
             'message'        => $this->faker->text(),
         ];
     }
