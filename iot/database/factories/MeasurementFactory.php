@@ -19,7 +19,7 @@ class MeasurementFactory extends Factory
     {
         return [
             'device_id'   => DB::table('devices')->inRandomOrder()->value('id'),
-            'temperature' => $this->faker->numberBetween(-20, 100),
+            'temperature' => $this->faker->numberBetween(-20, 50),
             'measured_at' => $this->faker->dateTime(),
         ];
     }
