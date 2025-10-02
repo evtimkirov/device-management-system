@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DeviceAlertController;
 use App\Http\Controllers\MeasurementController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DeviceController;
@@ -28,5 +29,8 @@ Route::prefix('v1')->group(function () {
         # Measurements
         Route::get('/users/{user}/measurements', [MeasurementController::class, 'index']);
         Route::post('/devices/{device}/measurements', [MeasurementController::class, 'store']);
+
+        # Alerts
+        Route::get('/users/{user}/alerts', [DeviceAlertController::class, 'index']);
     });
 });

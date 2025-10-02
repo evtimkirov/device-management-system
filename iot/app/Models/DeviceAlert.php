@@ -24,8 +24,6 @@ class DeviceAlert extends Model
     protected $fillable = [
         'type',
         'message',
-        'created_at',
-        'updated_at',
     ];
 
     /**

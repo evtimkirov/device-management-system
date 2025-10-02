@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Device;
+use App\Models\Measurement;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Facades\DB;
 
@@ -17,9 +20,27 @@ class DeviceAlertFactory extends Factory
      */
     public function definition(): array
     {
+        // User with device
+        $user = User::has('devices')->inRandomOrder()->first();
+
+        // Create device with user if not exists
+        if (!$user) {
+            $user = User::factory()
+                ->has(Device::factory()
+                    ->has(Measurement::factory()->count(5))
+                    ->count(1))
+                ->create();
+        }
+
+        // Random device
+        $device = $user->devices()->inRandomOrder()->first();
+
+        // Measurement for the selected device
+        $measurementId = $device->measurements()->inRandomOrder()->first()->id;
+
         return [
-            'device_id'      => DB::table('devices')->inRandomOrder()->value('id'),
-            'measurement_id' => DB::table('measurements')->inRandomOrder()->value('id'),
+            'device_id'      => $device->id,
+            'measurement_id' => $measurementId,
             'type'           => $this->faker->randomElement(['temperature_threshold', 'offline', 'custom_rule']),
             'message'        => $this->faker->text(),
         ];
