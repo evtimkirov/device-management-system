@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MeasurementController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\UserController;
@@ -23,5 +24,8 @@ Route::prefix('v1')->group(function () {
         Route::delete('/devices/{id}', [DeviceController::class, 'destroy']);
         Route::post('/users/{user}/devices/{device}/attach', [DeviceController::class, 'attachDevice']);
         Route::delete('/users/{user}/devices/{device}/detach', [DeviceController::class, 'detachDevice']);
+
+        # Measurements
+        Route::post('/devices/{device}/measurements', [MeasurementController::class, 'store']);
     });
 });
