@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DeviceController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,5 +17,11 @@ Route::prefix('v1')->group(function () {
         # Users
         Route::post('/users', [UserController::class, 'store']);
         Route::delete('/users/{id}', [UserController::class, 'destroy']);
+
+        # Devices
+        Route::post('/devices', [DeviceController::class, 'store']);
+        Route::delete('/devices/{id}', [DeviceController::class, 'destroy']);
+        Route::post('/users/{user}/devices/{device}/attach', [DeviceController::class, 'attachDevice']);
+        Route::delete('/users/{user}/devices/{device}/detach', [DeviceController::class, 'detachDevice']);
     });
 });
