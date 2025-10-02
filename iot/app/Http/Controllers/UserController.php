@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateUserRequest;
-use App\Http\Requests\DeleteUserRequest;
+use App\Http\Requests\Users\CreateUserRequest;
+use App\Http\Requests\Users\DeleteUserRequest;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
