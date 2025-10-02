@@ -6,10 +6,16 @@ use App\Http\Requests\Measurements\CreateMeasurementRequest;
 use App\Http\Requests\Measurements\GetMeasurementsRequest;
 use App\Models\Device;
 use App\Models\Measurement;
+use App\Services\DeviceAlertService;
 use Illuminate\Http\JsonResponse;
 
 class MeasurementController extends Controller
 {
+    public function __construct(protected DeviceAlertService $alertService)
+    {
+        //
+    }
+
     /**
      * Returns the measurements with devices per user
      *
@@ -35,10 +41,12 @@ class MeasurementController extends Controller
      */
     public function store(CreateMeasurementRequest $request): JsonResponse
     {
-        $device = Device::findOrFail($request->device);
-        $device
+        $device      = Device::findOrFail($request->device);
+        $measurement = $device
             ->measurements()
             ->create($request->validated());
+
+        $this->alertService->checkAndCreateAlert($measurement);
 
         return response()->json([
             'status' => 'success',
