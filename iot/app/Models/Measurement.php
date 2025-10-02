@@ -41,4 +41,32 @@ class Measurement extends Model
     public function device() {
         return $this->belongsTo(Device::class);
     }
+
+    /**
+     * Gets measurements by devices per user
+     *
+     * @param $userId
+     * @return mixed
+     */
+    public static function getMeasurementsByDevices($userId): mixed
+    {
+        $user = User::findOrFail($userId);
+
+        return $user->devices()
+            ->with(['measurements' => function ($query) {
+                $query->orderBy('id', 'desc');
+            }])
+            ->get()
+            ->map(function ($device) {
+                return [
+                    'device_name' => $device->name,
+                    'measurements' => $device->measurements->map(function ($measurement) {
+                        return [
+                            'temperature' => $measurement->temperature,
+                            'measured_at' => $measurement->measured_at,
+                        ];
+                    }),
+                ];
+            });
+    }
 }

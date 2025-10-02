@@ -26,6 +26,7 @@ Route::prefix('v1')->group(function () {
         Route::delete('/users/{user}/devices/{device}/detach', [DeviceController::class, 'detachDevice']);
 
         # Measurements
+        Route::get('/users/{user}/measurements', [MeasurementController::class, 'index']);
         Route::post('/devices/{device}/measurements', [MeasurementController::class, 'store']);
     });
 });
