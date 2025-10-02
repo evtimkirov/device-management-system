@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,8 +12,11 @@ class AuthController extends Controller
 {
     /**
      * Handle user login with Sanctum (cookie-based).
+     *
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function login(Request $request)
+    public function login(Request $request): JsonResponse
     {
         $request->validate([
             'email' => ['required', 'email'],
@@ -35,8 +39,11 @@ class AuthController extends Controller
 
     /**
      * Handle user logout.
+     *
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function logout(Request $request)
+    public function logout(Request $request): JsonResponse
     {
         Auth::guard('web')->logout();
 
@@ -48,8 +55,11 @@ class AuthController extends Controller
 
     /**
      * Get current authenticated user.
+     *
+     * @param Request $request
+     * @return JsonResponse
      */
-    public function me(Request $request)
+    public function me(Request $request): JsonResponse
     {
         return response()->json($request->user());
     }
