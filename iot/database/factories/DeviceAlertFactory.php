@@ -20,7 +20,6 @@ class DeviceAlertFactory extends Factory
      */
     public function definition(): array
     {
-        // User with device
         $user = User::has('devices')->inRandomOrder()->first();
 
         // Create device with user if not exists
@@ -32,17 +31,14 @@ class DeviceAlertFactory extends Factory
                 ->create();
         }
 
-        // Random device
         $device = $user->devices()->inRandomOrder()->first();
-
-        // Measurement for the selected device
-        $measurementId = $device->measurements()->inRandomOrder()->first()->id;
+        $measurement = $device->measurements()->inRandomOrder()->first();
 
         return [
             'device_id'      => $device->id,
-            'measurement_id' => $measurementId,
+            'measurement_id' => $measurement->id,
             'type'           => $this->faker->randomElement(['temperature_threshold', 'offline', 'custom_rule']),
-            'message'        => $this->faker->text(),
+            'message'        => "Temperature {$measurement->temperature}°C is out of safe range (0–30).",
         ];
     }
 }
