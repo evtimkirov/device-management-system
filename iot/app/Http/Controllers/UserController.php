@@ -17,11 +17,12 @@ class UserController extends Controller
      */
     public function store(CreateUserRequest $request): JsonResponse
     {
-        User::create($request->only('name', 'email', 'password'));
+        $user = User::create($request->only('name', 'email', 'password'));
 
         return response()->json([
-            'status' => 'success',
+            'status'  => 'success',
             'message' => 'The user has been created successfully.',
+            'data'    => $user,
         ]);
     }
 

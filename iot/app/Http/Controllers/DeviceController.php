@@ -19,11 +19,12 @@ class DeviceController extends Controller
      */
     public function store(CreateDeviceRequest $request): JsonResponse
     {
-        Device::create($request->only(['name', 'serial_number']));
+        $device = Device::create($request->only(['name', 'serial_number']));
 
         return response()->json([
-            'status' => 'success',
-            'message' => 'The device has been created successfully.',
+            'status'    => 'success',
+            'message'   => 'The device has been created successfully.',
+            'data'      => $device,
         ]);
     }
 
