@@ -37,7 +37,7 @@ class DeviceAlertFactory extends Factory
         return [
             'device_id'      => $device->id,
             'measurement_id' => $measurement->id,
-            'type'           => $this->faker->randomElement(['temperature_threshold', 'offline', 'custom_rule']),
+            'type'           => 'temperature_threshold',
             'message'        => "Temperature {$measurement->temperature}°C is out of safe range (0–30).",
         ];
     }

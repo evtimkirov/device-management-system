@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Measurement;
-use App\Services\DeviceAlertService;
+use App\Services\AlertManager;
 use Illuminate\Database\Seeder;
 
 class MeasurementSeeder extends Seeder
@@ -11,13 +11,10 @@ class MeasurementSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(): void
+    public function run(AlertManager $alertManager): void
     {
-        $measurements = Measurement::factory()->count(50)->create();
-        $alertService = app(DeviceAlertService::class);
-
-        foreach ($measurements as $measurement) {
-            $alertService->checkAndCreateAlert($measurement);
+        foreach (Measurement::factory()->count(50)->create() as $measurement) {
+            $alertManager->checkAndCreateAlerts($measurement);
         }
     }
 }
