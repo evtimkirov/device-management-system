@@ -34,7 +34,7 @@ class UserController extends Controller
      */
     public function destroy(DeleteUserRequest $request): JsonResponse
     {
-        User::findOrFail($request->id)->delete();
+        User::findOrFail($request->user)->delete();
 
         return response()->json([
             'status' => 'success',

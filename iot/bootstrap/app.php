@@ -18,6 +18,7 @@ return Application::configure(basePath: dirname(__DIR__))
             \Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse::class,
             \Illuminate\Cookie\Middleware\EncryptCookies::class,
         ]);
+        $middleware->alias(['device.access' => \App\Http\Middleware\CheckDeviceAccess::class]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

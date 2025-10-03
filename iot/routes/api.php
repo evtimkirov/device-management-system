@@ -18,19 +18,21 @@ Route::prefix('v1')->group(function () {
 
         # Users
         Route::post('/users', [UserController::class, 'store']);
-        Route::delete('/users/{id}', [UserController::class, 'destroy']);
+        Route::delete('/users/{user}', [UserController::class, 'destroy']);
 
-        # Devices
-        Route::post('/devices', [DeviceController::class, 'store']);
-        Route::delete('/devices/{id}', [DeviceController::class, 'destroy']);
-        Route::post('/users/{user}/devices/{device}/attach', [DeviceController::class, 'attachDevice']);
-        Route::delete('/users/{user}/devices/{device}/detach', [DeviceController::class, 'detachDevice']);
+        Route::middleware(['auth:sanctum', 'device.access'])->group(function () {
+            # Devices
+            Route::post('/devices', [DeviceController::class, 'store']);
+            Route::delete('/devices/{id}', [DeviceController::class, 'destroy']);
+            Route::post('/users/{user}/devices/{device}/attach', [DeviceController::class, 'attachDevice']);
+            Route::delete('/users/{user}/devices/{device}/detach', [DeviceController::class, 'detachDevice']);
 
-        # Measurements
-        Route::get('/users/{user}/measurements', [MeasurementController::class, 'index']);
-        Route::post('/devices/{device}/measurements', [MeasurementController::class, 'store']);
+            # Measurements
+            Route::get('/users/{user}/measurements', [MeasurementController::class, 'index']);
+            Route::post('/devices/{device}/measurements', [MeasurementController::class, 'store']);
 
-        # Alerts
-        Route::get('/users/{user}/alerts', [DeviceAlertController::class, 'index']);
+            # Alerts
+            Route::get('/users/{user}/alerts', [DeviceAlertController::class, 'index']);
+        });
     });
 });

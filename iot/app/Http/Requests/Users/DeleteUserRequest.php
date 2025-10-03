@@ -22,7 +22,7 @@ class DeleteUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'id' => [
+            'user' => [
                 'required',
                 'integer',
                 'exists:users,id'
@@ -38,7 +38,7 @@ class DeleteUserRequest extends FormRequest
     public function validationData(): array
     {
         return array_merge($this->all(), [
-            'id' => $this->route('id'),
+            'user' => $this->route('user'),
         ]);
     }
 }
