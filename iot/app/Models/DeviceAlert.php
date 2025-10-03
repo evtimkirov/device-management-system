@@ -22,6 +22,8 @@ class DeviceAlert extends Model
      * @var string[]
      */
     protected $fillable = [
+        'device_id',
+        'measurement_id',
         'type',
         'message',
     ];
