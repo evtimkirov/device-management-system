@@ -33,10 +33,9 @@ class MeasurementController extends Controller
      * Create a new device measurement
      *
      * @param CreateMeasurementRequest $request
-     * @param AlertManager $alertManager
      * @return JsonResponse
      */
-    public function store(CreateMeasurementRequest $request, AlertManager $alertManager): JsonResponse
+    public function store(CreateMeasurementRequest $request): JsonResponse
     {
         $device      = Device::findOrFail($request->device);
         $measurement = $device
