@@ -5,8 +5,16 @@ namespace App\Services;
 use App\Models\DeviceAlert;
 use App\Models\Measurement;
 
+/**
+ * The class creates a new alert with the proper parameters depending on the specific measurements.
+ */
 class AlertManager
 {
+    /**
+     * Constructor accept an array with different strategies
+     *
+     * @param array $strategies
+     */
     public function __construct(protected array $strategies) {}
 
     /**
