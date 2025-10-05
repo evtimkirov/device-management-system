@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\MeasurementCreated;
 use App\Http\Requests\Measurements\CreateMeasurementRequest;
 use App\Http\Requests\Measurements\GetMeasurementsRequest;
 use App\Models\Device;
@@ -42,7 +43,7 @@ class MeasurementController extends Controller
             ->measurements()
             ->create($request->validated());
 
-        $alertManager->checkAndCreateAlerts($measurement);
+        MeasurementCreated::dispatch($measurement);
 
         return response()->json([
             'status' => 'success',

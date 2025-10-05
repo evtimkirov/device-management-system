@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Events\MeasurementCreated;
 use App\Models\Measurement;
-use App\Services\AlertManager;
 use Illuminate\Database\Seeder;
 
 class MeasurementSeeder extends Seeder
@@ -11,10 +11,10 @@ class MeasurementSeeder extends Seeder
     /**
      * Run the database seeds.
      */
-    public function run(AlertManager $alertManager): void
+    public function run(): void
     {
         foreach (Measurement::factory()->count(50)->create() as $measurement) {
-            $alertManager->checkAndCreateAlerts($measurement);
+            MeasurementCreated::dispatch($measurement);
         }
     }
 }
