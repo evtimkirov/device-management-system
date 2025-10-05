@@ -8,6 +8,12 @@ use Illuminate\Http\JsonResponse;
 
 class DeviceAlertController extends Controller
 {
+    /**
+     * Returns all the alerts by devices per user
+     *
+     * @param GetAlertsRequest $request
+     * @return JsonResponse
+     */
     public function index(GetAlertsRequest $request): JsonResponse
     {
         $user = User::findOrFail($request->user);
