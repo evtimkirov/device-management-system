@@ -7,7 +7,6 @@ use App\Http\Requests\Measurements\CreateMeasurementRequest;
 use App\Http\Requests\Measurements\GetMeasurementsRequest;
 use App\Models\Device;
 use App\Models\Measurement;
-use App\Services\AlertManager;
 use Illuminate\Http\JsonResponse;
 
 class MeasurementController extends Controller
