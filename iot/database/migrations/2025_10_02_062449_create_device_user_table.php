@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->timestamps();
 
-            $table->unique(['device_id', 'user_id']); // Only one user per device
+            $table->unique(['device_id', 'user_id']); // To avoid the duplicated records
         });
     }
 
